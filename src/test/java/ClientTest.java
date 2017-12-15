@@ -30,4 +30,19 @@ public class ClientTest {
     assertEquals(Client.all().size(), 0);
   }
 
+  @Test
+  public void getId_clientsInstantiatesWithAnID_1() {
+    Client.clear();
+    Client myClient = new Client("Jane Doe");
+    assertEquals(1, myClient.getId());
+  }
+
+  @Test
+  public void find_returnsClientWithSameId_secondClient() {
+    Client.clear();
+    Client firstClient = new Client("Jane Doe");
+    Client secondClient = new Client("Mary Smith");
+    assertEquals(Client.find(secondClient.getId()), secondClient);
+  }
+
 }
