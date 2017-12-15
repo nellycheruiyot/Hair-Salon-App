@@ -54,7 +54,7 @@ public class App {
       // Stylist stylist = Stylist.find(Integer.parseInt(request.queryParams("stylistId")));
       String name = request.queryParams("name");
       Client newClient = new Client(name);
-      clients.add(newClient);
+      // clients.add(newClient);
 
       // Client newClient = new Client(name, stylist.getId());
       // newClient.save();

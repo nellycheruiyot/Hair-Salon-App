@@ -16,6 +16,12 @@ public class ClientTest {
   }
 
   @Test
+  public void isDone_isFalseAfterInstantiation_false() {
+    Client myClient = new Client("Jane Doe");
+    assertEquals(false, myClient.isDone());
+  }
+
+  @Test
   public void all_returnsAllInstancesOfClient_true() {
     Client firstClient = new Client("Jane Doe");
     Client secondClient = new Client("Mary Smith");
