@@ -22,4 +22,34 @@ public class StylistTest {
     assertEquals("Braids", testStylist.getSkills());
   }
 
+  @Test
+  public void all_returnsAllInstancesOfStylist_true() {
+    Stylist firstStylist = new Stylist("June","Braids");
+    Stylist secondStylist = new Stylist("Lilian","Weave");
+    assertEquals(true, Stylist.all().contains(firstStylist));
+    assertEquals(true, Stylist.all().contains(secondStylist));
+  }
+
+  @Test
+  public void clear_emptiesAllStylistsFromList_0() {
+    Stylist testStylist = new Stylist("June","Braids");
+    Stylist.clear();
+    assertEquals(Stylist.all().size(), 0);
+  }
+
+  @Test
+  public void getId_stylistsInstantiateWithAnId_1() {
+    Stylist.clear();
+    Stylist testStylist = new Stylist("June","Braids");
+    assertEquals(1, testStylist.getId());
+  }
+
+  @Test
+  public void find_returnsStylistWithSameId_secondStylist() {
+    Stylist.clear();
+    Stylist firstStylist = new Stylist("June","Braids");
+    Stylist secondStylist = new Stylist("Lilian","Weave");
+    assertEquals(Stylist.find(secondStylist.getId()), secondStylist);
+  }
+
 }
