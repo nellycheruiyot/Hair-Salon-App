@@ -1,7 +1,21 @@
+import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class ClientTest {
+
+  @Before
+  public void setUp() {
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/hair_salon_test", null, null);
+  }
+
+  @After
+  public void tearDown() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM clients *;";
+      con.createQuery(sql).executeUpdate();
+    }
+  }
 
   @Test
   public void Client_instantiatesCorrectly_true() {
@@ -30,22 +44,20 @@ public class ClientTest {
   }
 
   @Test
-  public void clear_emptiesAllTasksFromArrayList_0() {
+  public void clear_emptiesAllClientsFromArrayList_0() {
     Client myClient = new Client("Jane Doe");
-    Client.clear();
     assertEquals(Client.all().size(), 0);
   }
 
   @Test
   public void getId_clientsInstantiatesWithAnID_1() {
-    Client.clear();
     Client myClient = new Client("Jane Doe");
     assertEquals(1, myClient.getId());
   }
 
   @Test
   public void find_returnsClientWithSameId_secondClient() {
-    Client.clear();
+    // Client.clear();
     Client firstClient = new Client("Jane Doe");
     Client secondClient = new Client("Mary Smith");
     assertEquals(Client.find(secondClient.getId()), secondClient);
