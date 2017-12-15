@@ -63,4 +63,11 @@ public class ClientTest {
     assertEquals(Client.find(secondClient.getId()), secondClient);
   }
 
+  @Test
+  public void equals_returnsTrueIfDescriptionsAretheSame() {
+    Client firstClient = new Client("Jane Doe");
+    Client secondClient = new Client("Mary Smith");
+    assertTrue(firstClient.equals(secondClient));
+  }
+
 }
