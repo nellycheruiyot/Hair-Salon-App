@@ -1,20 +1,6 @@
-<h1>Client list!</h1>
+<h1>Smart Hair Salon</h1>
+<h5>Welcome to Smart Hair Salon!</h5>
+<This app will allow Smart Hair Salon to keep track of their stylist and clients to better it's services></p>
 
-#if ($clients)
-  <ul>
-    #foreach ($client in $clients)
-      <li>$client.getName()</li>
-    #end
-  </ul>
-#else
-  <p>No clients!</p>
-#end
-
-<p>Add a new Client:</p>
-
-<form action="/clients" method="post">
-  <label for="name">Client Name</label>
-  <input id="name" name="name" type="text">
-
-  <button type="submit" class="btn btn-default">Add Client</button>
-</form>
+<a href="/clients/new">Add a new client</a>
+<a href="/clients">View all current clients</a>
