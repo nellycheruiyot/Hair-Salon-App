@@ -52,4 +52,19 @@ public class StylistTest {
     assertEquals(Stylist.find(secondStylist.getId()), secondStylist);
   }
 
+  @Test
+  public void getClients_initiallyReturnsEmptyList_ArrayList() {
+    Stylist.clear();
+    Stylist testStylist = new Stylist("June","Braids");
+    assertEquals(0, testStylist.getClients().size());
+  }
+
+  @Test
+  public void addClient_addsClientToList_true() {
+    Stylist testStylist = new Stylist("June","Braids");
+    Client testClient = new Client("Jane Doe");
+    testStylist.addClient(testClient);
+    assertTrue(testStylist.getClients().contains(testClient));
+  }
+
 }
