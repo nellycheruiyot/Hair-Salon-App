@@ -15,4 +15,19 @@ public class ClientTest {
     assertEquals("Jane Doe", myClient.getName());
   }
 
+  @Test
+  public void all_returnsAllInstancesOfClient_true() {
+    Client firstClient = new Client("Jane Doe");
+    Client secondClient = new Client("Mary Smith");
+    assertEquals(true, Client.all().contains(firstClient));
+    assertEquals(true, Client.all().contains(secondClient));
+  }
+
+  @Test
+  public void clear_emptiesAllTasksFromArrayList_0() {
+    Client myClient = new Client("Jane Doe");
+    Client.clear();
+    assertEquals(Client.all().size(), 0);
+  }
+
 }
