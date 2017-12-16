@@ -38,7 +38,9 @@ public class ClientTest {
   @Test
   public void all_returnsAllInstancesOfClient_true() {
     Client firstClient = new Client("Jane Doe");
+    firstClient.save();
     Client secondClient = new Client("Mary Smith");
+    secondClient.save();
     assertEquals(true, Client.all().contains(firstClient));
     assertEquals(true, Client.all().contains(secondClient));
   }
@@ -68,6 +70,13 @@ public class ClientTest {
     Client firstClient = new Client("Jane Doe");
     Client secondClient = new Client("Mary Smith");
     assertTrue(firstClient.equals(secondClient));
+  }
+
+  @Test
+  public void save_returnsTrueIfDescriptionsAretheSame() {
+    Client myClient = new Client("Jane Doe");
+    myClient.save();
+    assertTrue(Client.all().get(0).equals(myClient));
   }
 
 }

@@ -61,4 +61,13 @@ public class Client {
     }
   }
 
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO clients (name) VALUES (:name)";
+      con.createQuery(sql)
+        .addParameter("name", this.name)
+        .executeUpdate();
+    }
+  }
+
 }
