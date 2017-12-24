@@ -64,9 +64,10 @@ public class Client {
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO clients (name) VALUES (:name)";
-      con.createQuery(sql)
+      this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
-        .executeUpdate();
+        .executeUpdate()
+        .getKey();
     }
   }
 

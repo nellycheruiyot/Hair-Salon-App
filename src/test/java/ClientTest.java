@@ -52,9 +52,10 @@ public class ClientTest {
   }
 
   @Test
-  public void getId_clientsInstantiatesWithAnID_1() {
+  public void getId_clientsInstantiatesWithAnID() {
     Client myClient = new Client("Jane Doe");
-    assertEquals(1, myClient.getId());
+    myClient.save();
+    assertTrue(myClient.getId() > 0);
   }
 
   @Test
@@ -77,6 +78,14 @@ public class ClientTest {
     Client myClient = new Client("Jane Doe");
     myClient.save();
     assertTrue(Client.all().get(0).equals(myClient));
+  }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Client myClient = new Client("Jane Doe");
+    myClient.save();
+    Client savedClient = Client.all().get(0);
+    assertEquals(myClient.getId(), savedClient.getId());
   }
 
 }
