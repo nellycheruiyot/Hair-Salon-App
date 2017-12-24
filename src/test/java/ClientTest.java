@@ -62,7 +62,9 @@ public class ClientTest {
   public void find_returnsClientWithSameId_secondClient() {
     // Client.clear();
     Client firstClient = new Client("Jane Doe");
+    firstClient.save();
     Client secondClient = new Client("Mary Smith");
+    secondClient.save();
     assertEquals(Client.find(secondClient.getId()), secondClient);
   }
 

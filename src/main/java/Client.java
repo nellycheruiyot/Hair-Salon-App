@@ -1,3 +1,4 @@
+import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,15 +7,15 @@ public class Client {
   private boolean done;
   // private static List<Client> instances = new ArrayList<Client>();
   private int id;
-  private int categoryId;
+  private int stylistId;
 
 
-  public Client(String name, int categoryId) {
+  public Client(String name, int stylistId) {
     this.name = name;
     done = false;
     // instances.add(this);
     // mId = instances.size();
-    this.categoryId = categoryId;
+    this.stylistId = stylistId;
   }
 
   public String getName() {
@@ -41,12 +42,19 @@ public class Client {
     return id;
   }
 
-  public int getCategoryId() {
-    return categoryId;
+  public int getStylistId() {
+    return stylistId;
   }
 
   public static Client find(int id) {
     // return instances.get(id - 1);
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM clients where id=:id";
+      Client client = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Client.class);
+      return client;
+    }
   }
 
   @Override
@@ -54,10 +62,10 @@ public class Client {
     if (!(otherClient instanceof Client)) {
       return false;
     }else {
-      Task newClient = (Client) otherClient;
+      Client newClient = (Client) otherClient;
       return this.getName().equals(newClient.getName()) &&
              this.getId() == newClient.getId() &&
-             this.getCategoryId() == newClient.getCategoryId();
+             this.getStylistId() == newClient.getStylistId();
     }
   }
 
