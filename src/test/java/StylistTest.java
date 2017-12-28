@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.Arrays;
 
 public class StylistTest {
 
@@ -106,12 +107,34 @@ public class StylistTest {
       assertTrue(Stylist.all().get(0).equals(myStylist));
     }
 
-    @Test
-    public void save_assignsIdToObject() {
-      Stylist myStylist = new Stylist("June","Braids");
-      myStylist.save();
-      Stylist savedStylist = Stylist.all().get(0);
-      assertEquals(myStylist.getId(), savedStylist.getId());
-    }
+  @Test
+  public void save_assignsIdToObject() {
+    Stylist myStylist = new Stylist("June","Braids");
+    myStylist.save();
+    Stylist savedStylist = Stylist.all().get(0);
+    assertEquals(myStylist.getId(), savedStylist.getId());
+  }
+
+  @Test
+  public void save_savesStylistIdIntoDB_true() {
+    Stylist myStylist = new Stylist("June","Braids");
+    myStylist.save();
+    Client myClient = new Client("Jane Doe", myStylist.getId());
+    myClient.save();
+    Client savedClient = Client.find(myClient.getId());
+    assertEquals(savedClient.getStylistId(), myStylist.getId());
+  }
+
+  @Test
+  public void getClients_retrievesAllClientsFromDatabase_clientsList() {
+    Stylist myStylist = new Stylist("June","Braids");
+    myStylist.save();
+    Client firstClient = new Client("Jane Doe", myStylist.getId());
+    firstClient.save();
+    Client secondClient = new Client("Mary Smith", myStylist.getId());
+    secondClient.save();
+    Client[] clients = new Client[] { firstClient, secondClient };
+    assertTrue(myStylist.getClients().containsAll(Arrays.asList(clients)));
+  }
 
 }
