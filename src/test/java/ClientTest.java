@@ -41,8 +41,8 @@ public class ClientTest {
     firstClient.save();
     Client secondClient = new Client("Mary Smith");
     secondClient.save();
-    assertEquals(true, Client.all().contains(firstClient));
-    assertEquals(true, Client.all().contains(secondClient));
+    assertEquals(true, Client.all().get(0).equals(firstClient));
+    assertEquals(true, Client.all().get(1).equals(secondClient));
   }
 
   @Test
@@ -71,7 +71,7 @@ public class ClientTest {
   @Test
   public void equals_returnsTrueIfDescriptionsAretheSame() {
     Client firstClient = new Client("Jane Doe");
-    Client secondClient = new Client("Mary Smith");
+    Client secondClient = new Client("Jane Doe");
     assertTrue(firstClient.equals(secondClient));
   }
 

@@ -7,15 +7,15 @@ public class Client {
   private boolean done;
   // private static List<Client> instances = new ArrayList<Client>();
   private int id;
-  private int stylistId;
+  // private int stylistId;
 
 
-  public Client(String name, int stylistId) {
+  public Client(String name) {
     this.name = name;
     done = false;
     // instances.add(this);
     // mId = instances.size();
-    this.stylistId = stylistId;
+    // this.stylistId = stylistId;
   }
 
   public String getName() {
@@ -28,7 +28,7 @@ public class Client {
 
   public static List<Client> all() {
     // return instances;
-    String sql = "SELECT id, name, categoryId FROM clients";
+    String sql = "SELECT id, name FROM clients";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Client.class);
     }
@@ -42,9 +42,9 @@ public class Client {
     return id;
   }
 
-  public int getStylistId() {
-    return stylistId;
-  }
+  // public int getStylistId() {
+  //   return stylistId;
+  // }
 
   public static Client find(int id) {
     // return instances.get(id - 1);
@@ -64,8 +64,8 @@ public class Client {
     }else {
       Client newClient = (Client) otherClient;
       return this.getName().equals(newClient.getName()) &&
-             this.getId() == newClient.getId() &&
-             this.getStylistId() == newClient.getStylistId();
+             this.getId() == newClient.getId();
+            //  this.getStylistId() == newClient.getStylistId();
     }
   }
 

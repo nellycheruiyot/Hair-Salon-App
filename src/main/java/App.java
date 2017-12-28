@@ -53,7 +53,7 @@ public class App {
       // }
       // Stylist stylist = Stylist.find(Integer.parseInt(request.queryParams("stylistId")));
       String name = request.queryParams("name");
-      Client newClient = new Client(name, stylistId);
+      Client newClient = new Client(name);
       // clients.add(newClient);
 
       // Client newClient = new Client(name, stylist.getId());
@@ -116,7 +116,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Stylist stylist = Stylist.find(Integer.parseInt(request.queryParams("stylistId")));
       String name = request.queryParams("name");
-      Client newClient = new Client(name, stylistId);
+      Client newClient = new Client(name);
       // newTask.save();
       stylist.addClient(newClient);
       model.put("stylist", stylist);
