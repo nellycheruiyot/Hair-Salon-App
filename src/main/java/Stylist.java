@@ -71,10 +71,10 @@ public class Stylist {
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO stylists (name, skills) VALUES (:name, :skills)";
-      this.id = con.createQuery(sql, true)
+      this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .addParameter("skills", this.skills)
-        .executeUpdate();
+        .executeUpdate()
         .getKey();
     }
   }
