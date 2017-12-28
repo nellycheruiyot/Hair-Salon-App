@@ -58,14 +58,17 @@ public class StylistTest {
   public void getId_stylistsInstantiateWithAnId_1() {
     // Stylist.clear();
     Stylist testStylist = new Stylist("June","Braids");
-    assertEquals(1, testStylist.getId());
+    testStylist.save();
+    assertTrue(testStylist.getId() > 0);
   }
 
   @Test
   public void find_returnsStylistWithSameId_secondStylist() {
     // Stylist.clear();
     Stylist firstStylist = new Stylist("June","Braids");
+    firstStylist.save();
     Stylist secondStylist = new Stylist("Lilian","Weave");
+    secondStylist.save();
     assertEquals(Stylist.find(secondStylist.getId()), secondStylist);
   }
 
@@ -101,6 +104,14 @@ public class StylistTest {
       Stylist myStylist = new Stylist("June","Braids");
       myStylist.save();
       assertTrue(Stylist.all().get(0).equals(myStylist));
+    }
+
+    @Test
+    public void save_assignsIdToObject() {
+      Stylist myStylist = new Stylist("June","Braids");
+      myStylist.save();
+      Stylist savedStylist = Stylist.all().get(0);
+      assertEquals(myStylist.getId(), savedStylist.getId());
     }
 
 }
