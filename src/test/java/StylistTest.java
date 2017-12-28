@@ -40,9 +40,11 @@ public class StylistTest {
   @Test
   public void all_returnsAllInstancesOfStylist_true() {
     Stylist firstStylist = new Stylist("June","Braids");
+    firstStylist.save();
     Stylist secondStylist = new Stylist("Lilian","Weave");
-    assertEquals(true, Stylist.all().contains(firstStylist));
-    assertEquals(true, Stylist.all().contains(secondStylist));
+    secondStylist.save();
+    assertEquals(true, Stylist.all().get(0).equals(firstStylist));
+    assertEquals(true, Stylist.all().get(1).equals(secondStylist));
   }
 
   @Test
@@ -85,6 +87,20 @@ public class StylistTest {
   @Test
     public void find_returnsNullWhenNoClientFound_null() {
       assertTrue(Stylist.find(999) == null);
+    }
+
+  @Test
+    public void equals_returnsTrueIfNamesAndSkillsAretheSame() {
+      Stylist firstStylist = new Stylist("June","Braids");
+      Stylist secondStylist = new Stylist("June","Braids");
+      assertTrue(firstStylist.equals(secondStylist));
+    }
+
+  @Test
+    public void save_savesIntoDatabase_true() {
+      Stylist myStylist = new Stylist("June","Braids");
+      myStylist.save();
+      assertTrue(Stylist.all().get(0).equals(myStylist));
     }
 
 }
