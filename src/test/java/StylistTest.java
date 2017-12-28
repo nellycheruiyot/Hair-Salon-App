@@ -4,6 +4,21 @@ import static org.junit.Assert.*;
 
 public class StylistTest {
 
+  @Before
+  public void setUp() {
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/hair_salon_test", null, null);
+  }
+
+  @After
+  public void tearDown() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteClientsQuery = "DELETE FROM clients *;";
+      String deleteStylistsQuery = "DELETE FROM stylists *;";
+      con.createQuery(deleteClientsQuery).executeUpdate();
+      con.createQuery(deleteStylistsQuery).executeUpdate();
+    }
+  }
+
   @Test
   public void stylist_instantiatesCorrectly_true() {
     Stylist testStylist = new Stylist("June","Braids");
@@ -33,20 +48,20 @@ public class StylistTest {
   @Test
   public void clear_emptiesAllStylistsFromList_0() {
     Stylist testStylist = new Stylist("June","Braids");
-    Stylist.clear();
+    // Stylist.clear();
     assertEquals(Stylist.all().size(), 0);
   }
 
   @Test
   public void getId_stylistsInstantiateWithAnId_1() {
-    Stylist.clear();
+    // Stylist.clear();
     Stylist testStylist = new Stylist("June","Braids");
     assertEquals(1, testStylist.getId());
   }
 
   @Test
   public void find_returnsStylistWithSameId_secondStylist() {
-    Stylist.clear();
+    // Stylist.clear();
     Stylist firstStylist = new Stylist("June","Braids");
     Stylist secondStylist = new Stylist("Lilian","Weave");
     assertEquals(Stylist.find(secondStylist.getId()), secondStylist);
@@ -54,7 +69,7 @@ public class StylistTest {
 
   @Test
   public void getClients_initiallyReturnsEmptyList_ArrayList() {
-    Stylist.clear();
+    // Stylist.clear();
     Stylist testStylist = new Stylist("June","Braids");
     assertEquals(0, testStylist.getClients().size());
   }
