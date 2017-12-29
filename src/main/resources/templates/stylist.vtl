@@ -6,5 +6,27 @@
     #end
   </ul>
 
+  <h2>Edit stylist:</h2>
+
+  <form action="/stylists/$stylist.getId()/updateName" method="post">
+    <label for="name">Stylist name</label>
+    <input id="name" name="name" type="text">
+    <button type="submit" class="btn btn-info">Update stylist name</button>
+  </form>
+
+  <br>
+
+  <form action="/stylists/$stylist.getId()/updateSkills" method="post">
+    <label for="skill">Stylist skills</label>
+    <input id="skill" name="skill" type="text">
+    <button type="submit" class="btn btn-info">Update stylist skills</button>
+  </form>
+
+  <br>
+
+  <form action="/stylists/$stylist.getId()/delete" method="post">
+    <button type="submit" class="btn btn-danger" id="delete-stylist">Delete stylist</button>
+  </form>
+
 <a href="/stylists/$stylist.getId()/clients/new">Add a new client</a>
 <a href="/stylists">All stylists</a>

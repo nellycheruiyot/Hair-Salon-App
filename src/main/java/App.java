@@ -96,7 +96,7 @@ public class App {
     post("/stylists", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("name");
-      String skills = request.queryParams("skills");
+      String skills = request.queryParams("skill");
       Stylist newStylist = new Stylist(name,skills);
       newStylist.save();
       model.put("template", "templates/stylist-success.vtl");
@@ -123,6 +123,35 @@ public class App {
       Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
       model.put("stylist", stylist);
       model.put("template", "templates/stylist-clients-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/stylists/:id/updateName", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
+      String name = request.queryParams("name");
+      stylist.updateName(name);
+      String url = String.format("/stylists/%d", stylist.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/stylists/:id/updateSkills", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
+      String skills = request.queryParams("skill");
+      stylist.updateSkills(skills);
+      String url = String.format("/stylists/%d", stylist.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/stylists/:id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
+      stylist.delete();
+      model.put("stylists", Stylist.all());
+      model.put("template", "templates/stylists.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

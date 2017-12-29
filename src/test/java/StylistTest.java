@@ -137,20 +137,29 @@ public class StylistTest {
     assertTrue(myStylist.getClients().containsAll(Arrays.asList(clients)));
   }
 
-  // @Test
-  // public void update_updatesStylistName_true() {
-  //   Stylist myStylist = new Stylist("June","Braids");
-  //   myStylist.save();
-  //   myStylist.updateName("Mercy");
-  //   assertEquals("Mercy", Stylist.find(myStylist.getId()).getName());
-  // }
+  @Test
+  public void update_updatesStylistName_true() {
+    Stylist myStylist = new Stylist("June","Braids");
+    myStylist.save();
+    myStylist.updateName("Mercy");
+    assertEquals("Mercy", Stylist.find(myStylist.getId()).getName());
+  }
 
-  // @Test
-  // public void update_updatesStylistSkills_true() {
-  //   Stylist myStylist = new Stylist("June","Braids");
-  //   myStylist.save();
-  //   myStylist.update("Weaving");
-  //   assertEquals("Weaving", Stylist.find(myStylist.getId()).getSkills());
-  // }
+  @Test
+  public void update_updatesStylistSkills_true() {
+    Stylist myStylist = new Stylist("June","Braids");
+    myStylist.save();
+    myStylist.updateSkills("Weaving");
+    assertEquals("Weaving", Stylist.find(myStylist.getId()).getSkills());
+  }
+
+  @Test
+  public void delete_deletesStylist_true() {
+    Stylist myStylist = new Stylist("June", "Braids");
+    myStylist.save();
+    int myStlistId = myStlistId.getId();
+    myStlistId.delete();
+    assertEquals(null, Stylist.find(myStlistId));
+  }
 
 }
