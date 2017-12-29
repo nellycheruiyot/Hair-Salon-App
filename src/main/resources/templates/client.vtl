@@ -1,5 +1,12 @@
 <h1>$client.getName()</h1>
-<h2>Done?:  $task.isDone()</h2>
+<h2>Belongs to: $stylist.getName() clients.</h2>
 
-<a href="/clients/new">Add another client</a>
-<a href="/clients">All clients</a>
+<h2>Edit client:</h2>
+
+<form action="/stylists/$client.getStylistId()/clients/$client.getId()" method="post">
+  <label for="name">Name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-info">Update Client</button>
+</form>
+
+<a href="/stylists/$stylist.getId()">Return to $stylist.getName()</a>
